@@ -1,34 +1,3 @@
-#Display login and close options
-def showLoginAndClose():
-  # {1:'Login',2:'Close App'}
-  while True:
-    try:      
-      print("1. Login \n2. Close App")
-      options = int(input("Please choose option 1 or 2? "))
-      if(options == 1):
-        username = input("What is your username ?")
-        password = input("What is your password ?")
-        staffData = fetchUserDetails()
-        enteredUsername = [staffData[0].strip('\n'),staffData[4].strip('\n')]
-        enteredPassword = [staffData[1].strip('\n'),staffData[5].strip('\n')]
-        
-        if(username in enteredUsername and password in enteredPassword) :
-          print("----------You are logged in--------------") 
-          #store user data in file sessions
-          newSession = storeUserSession(username,password) 
-          #Display account opitions        
-          showAccountOptions(newSession)            
-        else:
-          print("------------Please Try again---------------\nYour credentials do not match any record")     
-      elif(options == 2):
-        print("Closing App ...")
-        break
-      else:        
-          print("------------Please Try again---------------")
-    except ValueError:
-      print("******Please Enter a valid number******")
-
-
 # Fetch user credentials from staff files
 def fetchUserDetails():  
   with open('staff.txt') as f:
@@ -37,7 +6,7 @@ def fetchUserDetails():
     return read_data
 
 
-      
+# start user session      
 def storeUserSession(user,pwd):
   with open("session.txt", "w", encoding='utf-8') as f:
     f.write('{}\n'.format(user))
@@ -45,26 +14,24 @@ def storeUserSession(user,pwd):
     sessionsCreated = [user,pwd]
     return sessionsCreated
 
-def loadUserSession():
-  with open("session.txt", "r", encoding='utf-8') as f:
-    username  = f.readline().rstrip() 
-    password  = f.readline().rstrip()
-    usersessions = [username,password]
-    return usersessions
 
+
+
+# unset user session
 def removeSession(filename):
   import os
   if os.path.exists(filename):
     os.remove(filename)
 
+
+#Store account details
 def storeAccountDetails(acctList):
   with open('customer.txt', 'w') as file_handler:
     for item in acctList:
       file_handler.write("{}\n".format(item))
 
-
-def fetchAccountDetails(acctno):
-  # KeyWord =['word', 'word1', 'word3']
+#fetch account details with account no
+def fetchAccountDetails(acctno):  
   with open('customer.txt', 'r') as f:
       read_data = f.readlines()
       f.close()
@@ -74,7 +41,7 @@ def fetchAccountDetails(acctno):
       
 
   
-
+#generate account number
 def generateAccountNo(n):
   from random import randint
   start = 10**(n-1)
@@ -83,8 +50,8 @@ def generateAccountNo(n):
 
   
       
-# storeUserSession()
-# print(loadUserSession())
+
+
 
 def showAccountOptions(session):  
   try:
@@ -122,9 +89,41 @@ def showAccountOptions(session):
     print("******Please Enter a valid number******")
        
 
+#Display login and close options
+def showLoginAndClose():
+  # {1:'Login',2:'Close App'}
+  while True:
+    try:      
+      print("1. Login \n2. Close App")
+      options = int(input("Please choose option 1 or 2? "))
+      if(options == 1):
+        username = input("What is your username ?")
+        password = input("What is your password ?")
+        staffData = fetchUserDetails()
+        enteredUsername = [staffData[0].strip('\n'),staffData[4].strip('\n')]
+        enteredPassword = [staffData[1].strip('\n'),staffData[5].strip('\n')]
+        
+        if(username in enteredUsername and password in enteredPassword) :
+          print("----------You are logged in--------------") 
+          #store user data in file sessions
+          newSession = storeUserSession(username,password) 
+          #Display account opitions        
+          showAccountOptions(newSession)            
+        else:
+          print("------------Please Try again---------------\nYour credentials do not match any record")     
+      elif(options == 2):
+        print("Closing App ...")
+        break
+      else:        
+          print("------------Please Try again---------------")
+    except ValueError:
+      print("******Please Enter a valid number******")
 
 
 
-# fetchUserDetails()
-# print(fetchUserDetails())
+
+
+
+
+
 showLoginAndClose()
