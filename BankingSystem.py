@@ -23,6 +23,10 @@ def removeSession(filename):
   if os.path.exists(filename):
     os.remove(filename)
 
+def checkIfFileExist(filename):
+  import os
+  if os.path.exists(filename):
+    return True
 
 #Store account details
 def storeAccountDetails(acctList):
@@ -35,9 +39,10 @@ def fetchAccountDetails(acctno):
   with open('customer.txt', 'r') as f:
       read_data = f.readlines()
       f.close()
-      if(acctno == read_data[4]):
+      if(acctno == read_data[4].strip('\n')):
         return read_data
-
+     
+# print(fetchAccountDetails('6559407394'))
       
 
   
@@ -53,7 +58,7 @@ def generateAccountNo(n):
 
 
 
-def showAccountOptions(session):  
+def showAccountOptions(session):   
   try:
     print("1. Create new bank account \n2. Check Account Details \n3. Logout ")
     accountOptions = int(input("Please choose option 1 or 2 or 3? "))
@@ -72,17 +77,17 @@ def showAccountOptions(session):
       showAccountOptions(session)        
       # print("Account created")
     elif(accountOptions == 2):      
-      while(session):
+      while(checkIfFileExist('session.txt')):
         enteredaccountNumber = input("Please provide your Account Number")
         print("These are your Account details")      
         userAcctDetails = fetchAccountDetails(enteredaccountNumber)
-        print(f"1. Your account name is {userAcctDetails[0]} \n2.Your opening balance is {userAcctDetails[1]} \n3. Your account email is {userAcctDetails[2]} \n4. Your account type is {userAcctDetails[3]} \n5. Your account number is {userAcctDetails[4]}")
         
-        showAccountOptions(session)
+        print(f"1. Your account name is {userAcctDetails[0]} \n2.Your opening balance is {userAcctDetails[1]} \n3. Your account email is {userAcctDetails[2]} \n4. Your account type is {userAcctDetails[3]} \n5. Your account number is {userAcctDetails[4]}")        
+        showAccountOptions(session)      
     elif(accountOptions == 3):
       print("------------Please You are logged out---------------")       
       #delete user sessions
-      removeSession('session.txt')
+      removeSession('session.txt')           
     else:
       print("------------Please Try again---------------")
   except ValueError:
