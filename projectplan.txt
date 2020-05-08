@@ -1,0 +1,22 @@
+staff.txt
+--insert 2 staff records
+Each record has:
+Username
+Password
+Email
+Full Name
+
+read staff.txt
+read data
+fetech username and Password
+********************************
+check if username and password are correct
+check if entered username is same as username in file
+check if entered password is same as password in file 
+**************************
+After user login is successful, a new file should be created to store the user session.
+user loggedin
+create file and write data to it
+store username and password in a files
+show account options
+
