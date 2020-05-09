@@ -42,7 +42,7 @@ def fetchAccountDetails(acctno):
       if(acctno == read_data[4].strip('\n')):
         return read_data
      
-# print(fetchAccountDetails('6559407394'))
+
       
 
   
@@ -120,7 +120,7 @@ def showLoginAndClose():
         print("Closing App ...")
         break
       else:        
-          print("------------Please Try again---------------")
+        print("------------Please Try again---------------")
     except ValueError:
       print("******Please Enter a valid number******")
 
